@@ -5,7 +5,9 @@
 package com.sky.detector;
 
 import com.sky.detector.data.LoginAttempt;
+import com.sky.detector.data.LoglineAsLoginAttempt;
 import com.sky.detector.data.LoglineInterpreter;
+import com.sky.detector.strategy.BurstLoginDetectionStrategy;
 
 /**
  *
@@ -15,6 +17,10 @@ public class StrategicHackerDetector implements HackerDetector {
     LoglineInterpreter loglineInterpreter;
     DetectionStrategy detectionStrategy;
 
+    public StrategicHackerDetector() {
+        this(new LoglineAsLoginAttempt(), new BurstLoginDetectionStrategy());
+    }
+    
     public StrategicHackerDetector(LoglineInterpreter loglineInterpreter, 
             DetectionStrategy detectionStrategy) {
         this.loglineInterpreter = loglineInterpreter;
