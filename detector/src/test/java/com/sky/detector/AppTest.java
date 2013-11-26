@@ -45,46 +45,46 @@ public class AppTest {
         assertThat(result, is(ip));
     }
     
-    //~~~~~~ What is an Ip ?
+    //~~~~~~ What is a login attempt
     
     @Test
     public void log_line_first_token_is_login_attempt_ip() {
         String firstToken = SOME_STRING;
-        LoginAttempt line = LogLine.asLoginAttempt(loglineWithPresetToken(0, firstToken));
+        String logLine = loglineWithPresetToken(0, firstToken);
         
-        String ip = line.getIp();
+        LoginAttempt loginAttempt = LogLine.asLoginAttempt(logLine);
         
-        assertThat(ip, is(firstToken));
+        assertThat(loginAttempt.getIp(), is(firstToken));
     }
     
     @Test
     public void log_line_second_token_is_login_attempt_time() {
         String secondToken = SOME_STRING;
-        LoginAttempt line = LogLine.asLoginAttempt(loglineWithPresetToken(1, secondToken));
+        String logLine = loglineWithPresetToken(1, secondToken);
         
-        String time = line.getTime();
+        LoginAttempt loginAttempt = LogLine.asLoginAttempt(logLine);
         
-        assertThat(time, is(secondToken));
+        assertThat(loginAttempt.getTime(), is(secondToken));
     }
     
     @Test
     public void log_line_third_token_is_login_attempt_action() {
         String thirdToken = SOME_STRING;
-        LoginAttempt line = LogLine.asLoginAttempt(loglineWithPresetToken(2, thirdToken));
+        String logLine = loglineWithPresetToken(2, thirdToken);
         
-        String action = line.getAction();
+        LoginAttempt loginAttempt = LogLine.asLoginAttempt(logLine);
         
-        assertThat(action, is(thirdToken));
+        assertThat(loginAttempt.getAction(), is(thirdToken));
     }
     
     @Test
     public void log_line_fourth_token_is_login_attempt_username() {
         String fourthToken = SOME_STRING;
-        LoginAttempt line = LogLine.asLoginAttempt(loglineWithPresetToken(3, fourthToken));
+        String logLine = loglineWithPresetToken(3, fourthToken);
         
-        String username = line.getUsername();
+        LoginAttempt loginAttempt = LogLine.asLoginAttempt(logLine);
         
-        assertThat(username, is(fourthToken));
+        assertThat(loginAttempt.getUsername(), is(fourthToken));
     }
     
     
