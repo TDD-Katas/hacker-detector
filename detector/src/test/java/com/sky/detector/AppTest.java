@@ -100,12 +100,15 @@ public class AppTest {
         assertThat(tokens, equalTo(new String[]{token1, token2}));
     }
     
-    @Test
+    @Test(expected = InvalidInputStringFormatException.class)
     public void throw_invalid_syntax_if_logline_does_not_have_4_tokens() {
-        
-        assertThat(true, is(true));
+        throw new InvalidInputStringFormatException();
     }
 
+    class InvalidInputStringFormatException extends RuntimeException {
+        
+    }
+    
     class Line {
         private String[] tokens;
         
