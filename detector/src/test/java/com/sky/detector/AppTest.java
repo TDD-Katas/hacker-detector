@@ -7,6 +7,7 @@ package com.sky.detector;
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 /**
  *
@@ -62,13 +63,9 @@ public class AppTest {
         String token2 = "token2";
         String line = token1+TOKEN_SEPARATOR+token2;
         
-        
         String[] tokens = line.split(TOKEN_SEPARATOR);
         
-        
-        int numberOfTokens = tokens.length;
-        
-        assertThat(numberOfTokens, is(2));
+        assertThat(tokens, equalTo(new String[]{token1, token2}));
     }
     
 }
