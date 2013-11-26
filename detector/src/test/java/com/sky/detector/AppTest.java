@@ -50,7 +50,7 @@ public class AppTest {
     @Test
     public void line_first_token_is_ip() {
         String firstToken = SOME_STRING;
-        Line line = Line.fromLog(loglineWithPresetToken(0, firstToken));
+        LoginAttempt line = LogLine.asLoginAttempt(loglineWithPresetToken(0, firstToken));
         
         String ip = line.getIp();
         
@@ -60,7 +60,7 @@ public class AppTest {
     @Test
     public void line_second_token_is_time() {
         String secondToken = SOME_STRING;
-        Line line = Line.fromLog(loglineWithPresetToken(1, secondToken));
+        LoginAttempt line = LogLine.asLoginAttempt(loglineWithPresetToken(1, secondToken));
         
         String time = line.getTime();
         
@@ -70,7 +70,7 @@ public class AppTest {
     @Test
     public void line_third_token_is_action() {
         String thirdToken = SOME_STRING;
-        Line line = Line.fromLog(loglineWithPresetToken(2, thirdToken));
+        LoginAttempt line = LogLine.asLoginAttempt(loglineWithPresetToken(2, thirdToken));
         
         String action = line.getAction();
         
@@ -80,7 +80,7 @@ public class AppTest {
     @Test
     public void line_fourth_token_is_username() {
         String fourthToken = SOME_STRING;
-        Line line = Line.fromLog(loglineWithPresetToken(3, fourthToken));
+        LoginAttempt line = LogLine.asLoginAttempt(loglineWithPresetToken(3, fourthToken));
         
         String username = line.getUsername();
         
@@ -92,7 +92,7 @@ public class AppTest {
     
     @Test(expected = InvalidInputStringFormatException.class)
     public void throw_invalid_syntax_if_logline_does_not_have_4_tokens() {
-        Line.fromLog(SOME_STRING);
+        LogLine.asLoginAttempt(SOME_STRING);
     }
 
     
@@ -120,33 +120,35 @@ public class AppTest {
         }
     }
     
-    static class Line {
-        private String ip;
-        private String time;
-        private String action;
-        private String username;
-
-        public Line(String ip, String time, String action, String username) {
-            this.ip = ip;
-            this.time = time;
-            this.action = action;
-            this.username = username;
-        }
-        
-        public static Line fromLog(String logLine) {
+    static class LogLine {
+        public static LoginAttempt asLoginAttempt(String logLine) {
             String[] tokens = logLine.split(TOKEN_SEPARATOR);
             if (tokens.length != NUMBER_OF_TOKENS) {
                 throw new InvalidInputStringFormatException(
                         "Could not correctly split the log line into tokens");
             } else {
-                return new Line(
+                return new LoginAttempt(
                         tokens[0],
                         tokens[1],
                         tokens[2],
                         tokens[3]);
             }
         }
+    }
+    
+    static class LoginAttempt {
+        private String ip;
+        private String time;
+        private String action;
+        private String username;
 
+        public LoginAttempt(String ip, String time, String action, String username) {
+            this.ip = ip;
+            this.time = time;
+            this.action = action;
+            this.username = username;
+        }
+        
         public String getIp() {
             return ip;
         }
