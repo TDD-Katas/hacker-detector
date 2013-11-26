@@ -66,6 +66,16 @@ public class AppTest {
         assertThat(time, is(secondToken));
     }
     
+    @Test
+    public void line_third_token_is_action() {
+        String thirdToken = "action";
+        Line line = new Line("ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+thirdToken);
+        
+        String action = line.getAction();
+        
+        assertThat(action, is(thirdToken));
+    }
+    
     
     //~~~~~~ What is an token ?
     
@@ -98,6 +108,10 @@ public class AppTest {
         
         protected String getTime() {
             return tokens[1];
+        }
+        
+        protected String getAction() {
+            return tokens[2];
         }
         
     }
