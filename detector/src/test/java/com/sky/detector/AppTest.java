@@ -61,7 +61,7 @@ public class AppTest {
         String secondToken = "time";
         String line = "ole"+TOKEN_SEPARATOR+secondToken;
         
-        String time = splitLine(line)[1];
+        String time = getTimeFromLine(line);
         
         assertThat(time, is(secondToken));
     }
@@ -88,6 +88,10 @@ public class AppTest {
 
     protected String getIpFromLine(String line) {
         return splitLine(line)[0];
+    }
+
+    protected String getTimeFromLine(String line) {
+        return splitLine(line)[1];
     }
     
 }
