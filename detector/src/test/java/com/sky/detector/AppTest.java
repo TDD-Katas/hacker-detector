@@ -59,9 +59,9 @@ public class AppTest {
     @Test
     public void the_time_is_the_second_token_of_a_line() {
         String secondToken = "time";
-        String line = "ole"+TOKEN_SEPARATOR+secondToken;
+        Line line = new Line("ole"+TOKEN_SEPARATOR+secondToken);
         
-        String time = getTimeFromLine(line);
+        String time = line.getTime();
         
         assertThat(time, is(secondToken));
     }
@@ -80,20 +80,7 @@ public class AppTest {
         assertThat(tokens, equalTo(new String[]{token1, token2}));
     }
 
-    
-    
-    protected String[] splitLine(String line) {
-        return line.split(TOKEN_SEPARATOR);
-    }
 
-    protected String getIpFromLine(String line) {
-        return splitLine(line)[0];
-    }
-
-    protected String getTimeFromLine(String line) {
-        return splitLine(line)[1];
-    }
-    
     class Line {
         private String line;
         
@@ -107,6 +94,10 @@ public class AppTest {
         
         protected String getIp() {
             return split()[0];
+        }
+        
+        protected String getTime() {
+            return split()[1];
         }
         
     }
