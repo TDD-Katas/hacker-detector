@@ -15,6 +15,19 @@ import static org.hamcrest.CoreMatchers.is;
 public class AppTest {
     
     @Test
+    public void should_return_empty_string_if_line_is_not_offending() {
+        String emptyString = "";
+        boolean isOffendingLine = false;
+        
+        String result = "x";
+        if (!isOffendingLine) {
+            result = emptyString;
+        }
+        
+        assertThat(result, is(emptyString));
+    }
+    
+    @Test
     public void should_return_ip_if_line_is_offending() {
         String ip = "ip";
         boolean isOffendingLine = true;
