@@ -5,8 +5,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(ConcordionRunner.class)
 public class HackerDetectorFixture {
-
-	public String parseLine(String logLine) {
+	public String parseLine(String line) {
 		return "Hello world !";
 	}
 }
