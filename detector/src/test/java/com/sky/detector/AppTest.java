@@ -16,6 +16,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 public class AppTest {
     public static final String TOKEN_SEPARATOR = ",";
     public static final int NUMBER_OF_TOKENS = 4;
+    public static final String SOME_STRING = "somestring";
     
     //~~~~~~ What should return
     
@@ -49,7 +50,7 @@ public class AppTest {
     
     @Test
     public void line_first_token_is_ip() {
-        String firstToken = "ip";
+        String firstToken = SOME_STRING;
         Line line = Line.fromLog(loglineWithPresetToken(0, firstToken));
         
         String ip = line.getIp();
@@ -59,7 +60,7 @@ public class AppTest {
     
     @Test
     public void line_second_token_is_time() {
-        String secondToken = "time";
+        String secondToken = SOME_STRING;
         Line line = Line.fromLog(loglineWithPresetToken(1, secondToken));
         
         String time = line.getTime();
@@ -69,7 +70,7 @@ public class AppTest {
     
     @Test
     public void line_third_token_is_action() {
-        String thirdToken = "action";
+        String thirdToken = SOME_STRING;
         Line line = Line.fromLog(loglineWithPresetToken(2, thirdToken));
         
         String action = line.getAction();
@@ -79,7 +80,7 @@ public class AppTest {
     
     @Test
     public void line_fourth_token_is_username() {
-        String fourthToken = "username";
+        String fourthToken = SOME_STRING;
         Line line = Line.fromLog(loglineWithPresetToken(3, fourthToken));
         
         String username = line.getUsername();
@@ -92,7 +93,7 @@ public class AppTest {
     
     @Test(expected = InvalidInputStringFormatException.class)
     public void throw_invalid_syntax_if_logline_does_not_have_4_tokens() {
-        Line.fromLog("ole"+TOKEN_SEPARATOR+"ole");
+        Line.fromLog(SOME_STRING);
     }
 
     
