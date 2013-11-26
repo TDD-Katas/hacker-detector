@@ -48,7 +48,7 @@ public class AppTest {
     //~~~~~~ What is an Ip ?
     
     @Test
-    public void line_first_token_is_login_attempt_ip() {
+    public void log_line_first_token_is_login_attempt_ip() {
         String firstToken = SOME_STRING;
         LoginAttempt line = LogLine.asLoginAttempt(loglineWithPresetToken(0, firstToken));
         
@@ -58,7 +58,7 @@ public class AppTest {
     }
     
     @Test
-    public void line_second_token_is_login_attempt_time() {
+    public void log_line_second_token_is_login_attempt_time() {
         String secondToken = SOME_STRING;
         LoginAttempt line = LogLine.asLoginAttempt(loglineWithPresetToken(1, secondToken));
         
@@ -68,7 +68,7 @@ public class AppTest {
     }
     
     @Test
-    public void line_third_token_is_login_attempt_action() {
+    public void log_line_third_token_is_login_attempt_action() {
         String thirdToken = SOME_STRING;
         LoginAttempt line = LogLine.asLoginAttempt(loglineWithPresetToken(2, thirdToken));
         
@@ -78,7 +78,7 @@ public class AppTest {
     }
     
     @Test
-    public void line_fourth_token_is_login_attempt_username() {
+    public void log_line_fourth_token_is_login_attempt_username() {
         String fourthToken = SOME_STRING;
         LoginAttempt line = LogLine.asLoginAttempt(loglineWithPresetToken(3, fourthToken));
         
