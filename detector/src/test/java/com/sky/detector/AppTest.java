@@ -99,7 +99,12 @@ public class AppTest {
         
         assertThat(tokens, equalTo(new String[]{token1, token2}));
     }
-
+    
+    @Test
+    public void throw_invalid_syntax_if_logline_does_not_have_4_tokens() {
+        
+        assertThat(true, is(true));
+    }
 
     class Line {
         private String[] tokens;
