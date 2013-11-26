@@ -94,8 +94,18 @@ public class AppTest {
         Line.fromLog("ole"+TOKEN_SEPARATOR+"ole");
     }
 
+    
     protected String logWithFirstToken(String firstToken) {
-        return firstToken+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole";
+        StringBuilder st = new StringBuilder();
+        st.append(firstToken);
+        st.append(TOKEN_SEPARATOR);
+        st.append("ole");
+        st.append(TOKEN_SEPARATOR);
+        st.append("ole");
+        st.append(TOKEN_SEPARATOR);
+        st.append("ole");
+        
+        return st.toString();
     }
 
     protected String logLineWithSecondToken(String secondToken) {
