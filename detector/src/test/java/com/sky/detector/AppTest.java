@@ -7,6 +7,7 @@ package com.sky.detector;
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import org.junit.Ignore;
 
 /**
  *
@@ -18,13 +19,20 @@ public class AppTest {
     public static final String SOME_STRING = "somestring";
     
     //~~~~~~ What should return
+    @Ignore
+    @Test
+    public void log_line_is_converted_into_login_attempt() {
+        
+        assertThat(true, is(true));
+    }
+    
     
     @Test
-    public void should_return_empty_string_if_line_is_not_offending() {
+    public void should_return_empty_string_if_login_attempt_is_not_offending() {
         String emptyString = "";
         boolean isOffendingLine = false;
         
-        String result = "x";
+        String result = SOME_STRING;
         if (!isOffendingLine) {
             result = emptyString;
         }
@@ -33,8 +41,8 @@ public class AppTest {
     }
     
     @Test
-    public void should_return_ip_if_line_is_offending() {
-        String ip = "ip";
+    public void should_return_ip_if_login_attempt_is_offending() {
+        String ip = SOME_STRING;
         boolean isOffendingLine = true;
         
         String result = "";
