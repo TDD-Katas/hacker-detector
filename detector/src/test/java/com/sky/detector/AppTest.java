@@ -93,11 +93,11 @@ public class AppTest {
         }        
         
         protected String getIp() {
-            return split()[0];
+            return tokens[0];
         }
         
         protected String getTime() {
-            return split()[1];
+            return tokens[1];
         }
         
     }
