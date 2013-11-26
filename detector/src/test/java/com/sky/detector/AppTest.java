@@ -18,22 +18,37 @@ public class AppTest {
     public static final int NUMBER_OF_TOKENS = 4;
     public static final String SOME_STRING = "somestring";
     
-    //~~~~~~ What should return
-    @Ignore
-    @Test
-    public void log_line_is_converted_into_login_attempt() {
+    static class StrategicHackerDetector implements HackerDetector {
+        DetectionStrategy detectionStrategy;
+
+        public StrategicHackerDetector(DetectionStrategy detectionStrategy) {
+            this.detectionStrategy = detectionStrategy;
+        }
         
-        assertThat(true, is(true));
+        public String parseLine(String line) {
+            LoginAttempt loginAttempt = LogLine.asLoginAttempt(line);
+            if (detectionStrategy.isLoginOffensive(loginAttempt)) {
+                return loginAttempt.getIp();
+            } else {
+                return "";
+            }
+        }
+        
     }
     
+    static interface DetectionStrategy {
+        public boolean isLoginOffensive(LoginAttempt loginAttempt);
+    }
+    
+    //~~~~~~ What should return
     
     @Test
     public void should_return_empty_string_if_login_attempt_is_not_offending() {
         String emptyString = "";
-        boolean isOffendingLine = false;
+        boolean isOffendingLoginAttempt = false;
         
         String result = SOME_STRING;
-        if (!isOffendingLine) {
+        if (!isOffendingLoginAttempt) {
             result = emptyString;
         }
         
@@ -43,15 +58,22 @@ public class AppTest {
     @Test
     public void should_return_ip_if_login_attempt_is_offending() {
         String ip = SOME_STRING;
-        boolean isOffendingLine = true;
+        boolean isOffendingLogginAttempt = true;
         
         String result = "";
-        if (isOffendingLine) {
+        if (isOffendingLogginAttempt) {
             result = ip;
         }
         
         assertThat(result, is(ip));
     }
+    
+    @Test
+    public void a_login_attempt_is_offensive_if_the_same_ip_had_failed_login_5_or_more_times_in_a_5_minute_period() {
+        
+        assertThat(true, is(true));
+    }
+    
     
     //~~~~~~ What is a login attempt
     
