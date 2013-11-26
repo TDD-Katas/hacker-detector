@@ -60,7 +60,7 @@ public class AppTest {
     @Test
     public void line_second_token_is_time() {
         String secondToken = "time";
-        Line line = Line.fromLog(logLineWithSecondToken(secondToken));
+        Line line = Line.fromLog(loglineWithPresetToken(1, secondToken));
         
         String time = line.getTime();
         
@@ -70,7 +70,7 @@ public class AppTest {
     @Test
     public void line_third_token_is_action() {
         String thirdToken = "action";
-        Line line = Line.fromLog(logLineWithThirdToken(thirdToken));
+        Line line = Line.fromLog(loglineWithPresetToken(2, thirdToken));
         
         String action = line.getAction();
         
@@ -80,7 +80,7 @@ public class AppTest {
     @Test
     public void line_fourth_token_is_username() {
         String fourthToken = "username";
-        Line line = Line.fromLog(logLineWithFourthToken(fourthToken));
+        Line line = Line.fromLog(loglineWithPresetToken(3, fourthToken));
         
         String username = line.getUsername();
         
@@ -108,18 +108,6 @@ public class AppTest {
         }
         
         return st.toString();
-    }
-
-    protected String logLineWithSecondToken(String secondToken) {
-        return "ole"+TOKEN_SEPARATOR+secondToken+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole";
-    }
-
-    protected String logLineWithThirdToken(String thirdToken) {
-        return "ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+thirdToken+TOKEN_SEPARATOR+"ole";
-    }
-
-    protected String logLineWithFourthToken(String fourthToken) {
-        return "ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+fourthToken;
     }
 
     static class InvalidInputStringFormatException extends RuntimeException {
