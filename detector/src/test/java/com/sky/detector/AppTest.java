@@ -48,12 +48,22 @@ public class AppTest {
     
     @Test
     public void the_ip_is_the_first_token_of_a_line() {
-        String ip = "ip";
+        String firstToken = "ip";
         String line = "ip"+TOKEN_SEPARATOR+"ole";
         
-        String firstToken = getIpFromLine(line);
+        String ip = getIpFromLine(line);
         
         assertThat(ip, is(firstToken));
+    }
+    
+    @Test
+    public void the_time_is_the_second_token_of_a_line() {
+        String secondToken = "time";
+        String line = "ole"+TOKEN_SEPARATOR+secondToken;
+        
+        String time = splitLine(line)[1];
+        
+        assertThat(time, is(secondToken));
     }
     
     
