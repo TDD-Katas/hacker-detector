@@ -58,7 +58,7 @@ public class AppTest {
     //~~~~~~ What is an token ?
     
     @Test
-    public void a_line_has_tokens_separated_by_comma() {
+    public void a_line_is_split_into_tokens() {
         String token1 = "token1";
         String token2 = "token2";
         String line = token1+TOKEN_SEPARATOR+token2;
