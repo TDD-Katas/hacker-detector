@@ -4,40 +4,59 @@
  */
 package com.sky.detector;
 
-import com.sky.detector.data.LogLineTest;
+import com.sky.detector.data.LoglineAsLoginAttemptTest;
+import com.sky.detector.data.LoginAttempt;
+import com.sky.detector.data.LoglineInterpreter;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  *
  * @author Iulian Ghionoiu <iulian.ghionoiu@exenne.ro>
  */
 public class StrategicHackerDetectorTest {
+    public static final String SOME_LINE = "someline";
+    public static final String EMPTY_STRING = "";
     
     @Test
     public void should_return_empty_string_if_login_attempt_is_not_offending() {
-        String emptyString = "";
-        boolean isOffendingLoginAttempt = false;
+        boolean isLoginOffending = false;
+        HackerDetector detector = createDetector(isLoginOffending);
         
-        String result = LogLineTest.SOME_STRING;
-        if (!isOffendingLoginAttempt) {
-            result = emptyString;
-        }
+        String result = detector.parseLine(SOME_LINE);
         
-        assertThat(result, is(emptyString));
+        assertThat(result, is(EMPTY_STRING));
     }
     
     @Test
     public void should_return_ip_if_login_attempt_is_offending() {
-        String ip = LogLineTest.SOME_STRING;
-        boolean isOffendingLogginAttempt = true;
+        LoginAttempt loginAttempt = createSomeLoginAttempt();
+        boolean isLoginOffending = true;
+        HackerDetector detector = createDetectorWithPreparedLogin(loginAttempt, isLoginOffending);
         
-        String result = "";
-        if (isOffendingLogginAttempt) {
-            result = ip;
-        }
+        String result = detector.parseLine(SOME_LINE);
         
-        assertThat(result, is(ip));
+        assertThat(result, is(loginAttempt.getIp()));
+    }
+
+    //~~~~~ Test helpers
+    
+    protected LoginAttempt createSomeLoginAttempt() {
+        return new LoginAttempt("ole", "ole", "ole", "ole");
+    }
+
+    protected HackerDetector createDetector(boolean isLoginOffending) {
+        return createDetectorWithPreparedLogin(createSomeLoginAttempt(), isLoginOffending);
+    }
+
+    protected HackerDetector createDetectorWithPreparedLogin(LoginAttempt loginAttempt, boolean isLoginOffending) {
+        LoglineInterpreter loglineInterpreter = mock(LoglineInterpreter.class);
+        when(loglineInterpreter.convert(any(String.class))).thenReturn(loginAttempt);
+        DetectionStrategy passAllDetectionStrategy = mock(DetectionStrategy.class);
+        when(passAllDetectionStrategy.isLoginOffensive(any(LoginAttempt.class))).thenReturn(isLoginOffending);
+        HackerDetector detector = new StrategicHackerDetector(loglineInterpreter, passAllDetectionStrategy);
+        return detector;
     }
 }
