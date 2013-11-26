@@ -76,6 +76,16 @@ public class AppTest {
         assertThat(action, is(thirdToken));
     }
     
+    @Test
+    public void line_fourth_token_is_username() {
+        String fourthToken = "username";
+        Line line = new Line("ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+fourthToken);
+        
+        String username = line.getUsername();
+        
+        assertThat(username, is(fourthToken));
+    }
+    
     
     //~~~~~~ What is an token ?
     
@@ -114,6 +124,9 @@ public class AppTest {
             return tokens[2];
         }
         
+        protected String getUsername() {
+            return tokens[3];
+        }
     }
     
     
