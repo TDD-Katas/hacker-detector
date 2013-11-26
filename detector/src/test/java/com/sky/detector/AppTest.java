@@ -49,7 +49,7 @@ public class AppTest {
     @Test
     public void line_first_token_is_ip() {
         String firstToken = "ip";
-        Line line = Line.fromLog("ip"+TOKEN_SEPARATOR+"ole");
+        Line line = Line.fromLog("ip"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole");
         
         String ip = line.getIp();
         
@@ -59,7 +59,7 @@ public class AppTest {
     @Test
     public void line_second_token_is_time() {
         String secondToken = "time";
-        Line line = Line.fromLog("ole"+TOKEN_SEPARATOR+secondToken);
+        Line line = Line.fromLog("ole"+TOKEN_SEPARATOR+secondToken+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole");
         
         String time = line.getTime();
         
@@ -69,7 +69,7 @@ public class AppTest {
     @Test
     public void line_third_token_is_action() {
         String thirdToken = "action";
-        Line line = Line.fromLog("ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+thirdToken);
+        Line line = Line.fromLog("ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+thirdToken+TOKEN_SEPARATOR+"ole");
         
         String action = line.getAction();
         
@@ -89,25 +89,19 @@ public class AppTest {
     
     //~~~~~~ What is an token ?
     
-    @Test
-    public void line_is_split_into_tokens() {
-        String token1 = "token1";
-        String token2 = "token2";
-        Line line = Line.fromLog(token1+TOKEN_SEPARATOR+token2);
-        
-        String[] tokens = line.getTokens();
-        
-        assertThat(tokens, equalTo(new String[]{token1, token2}));
-    }
-    
     @Test(expected = InvalidInputStringFormatException.class)
     public void throw_invalid_syntax_if_logline_does_not_have_4_tokens() {
-        
-        throw new InvalidInputStringFormatException();
+        Line.fromLog("ole"+TOKEN_SEPARATOR+"ole");
     }
 
-    class InvalidInputStringFormatException extends RuntimeException {
-        
+    static class InvalidInputStringFormatException extends RuntimeException {
+
+        public InvalidInputStringFormatException() {
+        }
+
+        public InvalidInputStringFormatException(String message) {
+            super(message);
+        }
     }
     
     static class Line {
@@ -118,7 +112,13 @@ public class AppTest {
         }
         
         public static Line fromLog(String logLine) {
-            return new Line(logLine.split(TOKEN_SEPARATOR));
+            String[] tokens = logLine.split(TOKEN_SEPARATOR);
+            if (tokens.length != 4) {
+                throw new InvalidInputStringFormatException(
+                        "Could not correctly split the log line into tokens");
+            } else {
+                return new Line(tokens);
+            }
         }
         
         protected String[] getTokens() {
