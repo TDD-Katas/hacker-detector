@@ -48,9 +48,10 @@ public class AppTest {
     
     @Test
     public void the_ip_is_the_first_token_of_a_line() {
-        String firstToken = "ip";
+        String ip = "ip";
+        String line = "ip"+TOKEN_SEPARATOR+"ole";
         
-        String ip = firstToken;
+        String firstToken = line.split(TOKEN_SEPARATOR)[0];
         
         assertThat(ip, is(firstToken));
     }
