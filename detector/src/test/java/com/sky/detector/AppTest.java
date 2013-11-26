@@ -47,7 +47,7 @@ public class AppTest {
     //~~~~~~ What is an Ip ?
     
     @Test
-    public void the_ip_is_the_first_token_of_a_line() {
+    public void line_first_token_is_ip() {
         String firstToken = "ip";
         Line line = new Line("ip"+TOKEN_SEPARATOR+"ole");
         
@@ -57,7 +57,7 @@ public class AppTest {
     }
     
     @Test
-    public void the_time_is_the_second_token_of_a_line() {
+    public void line_second_token_is_time() {
         String secondToken = "time";
         Line line = new Line("ole"+TOKEN_SEPARATOR+secondToken);
         
@@ -70,7 +70,7 @@ public class AppTest {
     //~~~~~~ What is an token ?
     
     @Test
-    public void a_line_is_split_into_tokens() {
+    public void line_is_split_into_tokens() {
         String token1 = "token1";
         String token2 = "token2";
         Line line = new Line(token1+TOKEN_SEPARATOR+token2);
