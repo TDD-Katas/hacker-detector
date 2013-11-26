@@ -15,6 +15,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
  */
 public class AppTest {
     public static final String TOKEN_SEPARATOR = ",";
+    public static final int NUMBER_OF_TOKENS = 4;
     
     //~~~~~~ What should return
     
@@ -49,7 +50,7 @@ public class AppTest {
     @Test
     public void line_first_token_is_ip() {
         String firstToken = "ip";
-        Line line = Line.fromLog(logWithFirstToken(firstToken));
+        Line line = Line.fromLog(loglineWithPresetToken(0, firstToken));
         
         String ip = line.getIp();
         
@@ -95,15 +96,16 @@ public class AppTest {
     }
 
     
-    protected String logWithFirstToken(String firstToken) {
+    protected String loglineWithPresetToken(int tokenPosition, String token) {
         StringBuilder st = new StringBuilder();
-        st.append(firstToken);
-        st.append(TOKEN_SEPARATOR);
-        st.append("ole");
-        st.append(TOKEN_SEPARATOR);
-        st.append("ole");
-        st.append(TOKEN_SEPARATOR);
-        st.append("ole");
+        for (int i = 0; i < NUMBER_OF_TOKENS; i++) {
+            if (i == tokenPosition) {
+                st.append(token);
+            } else {
+                st.append("ole");
+            }
+            st.append(TOKEN_SEPARATOR);
+        }
         
         return st.toString();
     }
@@ -139,7 +141,7 @@ public class AppTest {
         
         public static Line fromLog(String logLine) {
             String[] tokens = logLine.split(TOKEN_SEPARATOR);
-            if (tokens.length != 4) {
+            if (tokens.length != NUMBER_OF_TOKENS) {
                 throw new InvalidInputStringFormatException(
                         "Could not correctly split the log line into tokens");
             } else {
