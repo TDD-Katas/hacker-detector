@@ -6,8 +6,7 @@ import org.junit.runner.RunWith;
 @RunWith(ConcordionRunner.class)
 public class AppFixture {
 
-	public String greetingFor(String firstName) {
-
-		return "Hello " + firstName + "!";
+	public String parseLine(String logLine) {
+		return "Hello world !";
 	}
 }
