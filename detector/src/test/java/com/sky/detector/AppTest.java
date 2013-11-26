@@ -58,8 +58,8 @@ public class AppTest {
     @Test
     public void a_line_has_tokens_separated_by_comma() {
         String line = "token1,token2";
-        
-        int numberOfTokens = 2;
+        String[] tokens = line.split(",");
+        int numberOfTokens = tokens.length;
         
         assertThat(numberOfTokens, is(2));
     }
