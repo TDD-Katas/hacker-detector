@@ -7,7 +7,6 @@ package com.sky.detector;
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.equalTo;
 
 /**
  *
@@ -122,10 +121,16 @@ public class AppTest {
     }
     
     static class Line {
-        private String[] tokens;
-        
-        private Line(String[] tokens) {
-            this.tokens = tokens;
+        private String ip;
+        private String time;
+        private String action;
+        private String username;
+
+        public Line(String ip, String time, String action, String username) {
+            this.ip = ip;
+            this.time = time;
+            this.action = action;
+            this.username = username;
         }
         
         public static Line fromLog(String logLine) {
@@ -134,28 +139,28 @@ public class AppTest {
                 throw new InvalidInputStringFormatException(
                         "Could not correctly split the log line into tokens");
             } else {
-                return new Line(tokens);
+                return new Line(
+                        tokens[0],
+                        tokens[1],
+                        tokens[2],
+                        tokens[3]);
             }
         }
-        
-        protected String[] getTokens() {
-            return tokens;
-        }        
-        
-        protected String getIp() {
-            return tokens[0];
+
+        public String getIp() {
+            return ip;
         }
-        
-        protected String getTime() {
-            return tokens[1];
+
+        public String getTime() {
+            return time;
         }
-        
-        protected String getAction() {
-            return tokens[2];
+
+        public String getAction() {
+            return action;
         }
-        
-        protected String getUsername() {
-            return tokens[3];
+
+        public String getUsername() {
+            return username;
         }
     }
     
