@@ -51,10 +51,11 @@ public class AppTest {
         String ip = "ip";
         String line = "ip"+TOKEN_SEPARATOR+"ole";
         
-        String firstToken = line.split(TOKEN_SEPARATOR)[0];
+        String firstToken = getIpFromLine(line);
         
         assertThat(ip, is(firstToken));
     }
+    
     
     //~~~~~~ What is an token ?
     
@@ -64,9 +65,19 @@ public class AppTest {
         String token2 = "token2";
         String line = token1+TOKEN_SEPARATOR+token2;
         
-        String[] tokens = line.split(TOKEN_SEPARATOR);
+        String[] tokens = splitLine(line);
         
         assertThat(tokens, equalTo(new String[]{token1, token2}));
+    }
+
+    
+    
+    protected String[] splitLine(String line) {
+        return line.split(TOKEN_SEPARATOR);
+    }
+
+    protected String getIpFromLine(String line) {
+        return splitLine(line)[0];
     }
     
 }
