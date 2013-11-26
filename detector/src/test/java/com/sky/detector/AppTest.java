@@ -82,14 +82,14 @@ public class AppTest {
 
 
     class Line {
-        private String line;
+        private String[] tokens;
         
         public Line(String line) {
-            this.line = line;
+            this.tokens = line.split(TOKEN_SEPARATOR);
         }
         
         protected String[] split() {
-            return line.split(TOKEN_SEPARATOR);
+            return tokens;
         }        
         
         protected String getIp() {
