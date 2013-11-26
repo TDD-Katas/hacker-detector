@@ -15,10 +15,14 @@ import static org.hamcrest.CoreMatchers.is;
 public class AppTest {
     
     @Test
-    public void should_return_ip_for_if_line_is_offending() {
+    public void should_return_ip_if_line_is_offending() {
         String ip = "ip";
+        boolean isOffendingLine = true;
         
-        String result = ip;
+        String result = "";
+        if (isOffendingLine) {
+            result = ip;
+        }
         
         assertThat(result, is(ip));
     }
