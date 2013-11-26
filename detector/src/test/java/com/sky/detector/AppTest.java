@@ -14,6 +14,8 @@ import static org.hamcrest.CoreMatchers.is;
  */
 public class AppTest {
     
+    //~~~~~~ What should return
+    
     @Test
     public void should_return_empty_string_if_line_is_not_offending() {
         String emptyString = "";
@@ -39,4 +41,15 @@ public class AppTest {
         
         assertThat(result, is(ip));
     }
+    
+    //~~~~~~ What is an Ip
+    @Test
+    public void the_ip_is_the_first_token_of_a_line() {
+        String firstToken = "ip";
+        
+        String ip = firstToken;
+        
+        assertThat(ip, is(firstToken));
+    }
+    
 }
