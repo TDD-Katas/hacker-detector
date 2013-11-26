@@ -42,7 +42,8 @@ public class AppTest {
         assertThat(result, is(ip));
     }
     
-    //~~~~~~ What is an Ip
+    //~~~~~~ What is an Ip ?
+    
     @Test
     public void the_ip_is_the_first_token_of_a_line() {
         String firstToken = "ip";
@@ -50,6 +51,17 @@ public class AppTest {
         String ip = firstToken;
         
         assertThat(ip, is(firstToken));
+    }
+    
+    //~~~~~~ What is an token ?
+    
+    @Test
+    public void a_line_has_tokens_separated_by_comma() {
+        String line = "token1,token2";
+        
+        int numberOfTokens = 2;
+        
+        assertThat(numberOfTokens, is(2));
     }
     
 }
