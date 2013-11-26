@@ -73,9 +73,9 @@ public class AppTest {
     public void a_line_is_split_into_tokens() {
         String token1 = "token1";
         String token2 = "token2";
-        String line = token1+TOKEN_SEPARATOR+token2;
+        Line line = new Line(token1+TOKEN_SEPARATOR+token2);
         
-        String[] tokens = splitLine(line);
+        String[] tokens = line.split();
         
         assertThat(tokens, equalTo(new String[]{token1, token2}));
     }
@@ -93,5 +93,19 @@ public class AppTest {
     protected String getTimeFromLine(String line) {
         return splitLine(line)[1];
     }
+    
+    class Line {
+        private String line;
+        
+        public Line(String line) {
+            this.line = line;
+        }
+        
+        protected String[] split() {
+            return line.split(TOKEN_SEPARATOR);
+        }        
+        
+    }
+    
     
 }
