@@ -13,6 +13,7 @@ import static org.hamcrest.CoreMatchers.is;
  * @author Iulian Ghionoiu <iulian.ghionoiu@exenne.ro>
  */
 public class AppTest {
+    public static final String TOKEN_SEPARATOR = ",";
     
     //~~~~~~ What should return
     
@@ -57,8 +58,14 @@ public class AppTest {
     
     @Test
     public void a_line_has_tokens_separated_by_comma() {
-        String line = "token1,token2";
-        String[] tokens = line.split(",");
+        String token1 = "token1";
+        String token2 = "token2";
+        String line = token1+TOKEN_SEPARATOR+token2;
+        
+        
+        String[] tokens = line.split(TOKEN_SEPARATOR);
+        
+        
         int numberOfTokens = tokens.length;
         
         assertThat(numberOfTokens, is(2));
