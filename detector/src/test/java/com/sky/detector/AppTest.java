@@ -49,7 +49,7 @@ public class AppTest {
     @Test
     public void line_first_token_is_ip() {
         String firstToken = "ip";
-        Line line = Line.fromLog("ip"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole");
+        Line line = Line.fromLog(logWithFirstToken(firstToken));
         
         String ip = line.getIp();
         
@@ -59,7 +59,7 @@ public class AppTest {
     @Test
     public void line_second_token_is_time() {
         String secondToken = "time";
-        Line line = Line.fromLog("ole"+TOKEN_SEPARATOR+secondToken+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole");
+        Line line = Line.fromLog(logLineWithSecondToken(secondToken));
         
         String time = line.getTime();
         
@@ -69,7 +69,7 @@ public class AppTest {
     @Test
     public void line_third_token_is_action() {
         String thirdToken = "action";
-        Line line = Line.fromLog("ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+thirdToken+TOKEN_SEPARATOR+"ole");
+        Line line = Line.fromLog(logLineWithThirdToken(thirdToken));
         
         String action = line.getAction();
         
@@ -79,7 +79,7 @@ public class AppTest {
     @Test
     public void line_fourth_token_is_username() {
         String fourthToken = "username";
-        Line line = Line.fromLog("ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+fourthToken);
+        Line line = Line.fromLog(logLineWithFourthToken(fourthToken));
         
         String username = line.getUsername();
         
@@ -92,6 +92,22 @@ public class AppTest {
     @Test(expected = InvalidInputStringFormatException.class)
     public void throw_invalid_syntax_if_logline_does_not_have_4_tokens() {
         Line.fromLog("ole"+TOKEN_SEPARATOR+"ole");
+    }
+
+    protected String logWithFirstToken(String firstToken) {
+        return firstToken+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole";
+    }
+
+    protected String logLineWithSecondToken(String secondToken) {
+        return "ole"+TOKEN_SEPARATOR+secondToken+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole";
+    }
+
+    protected String logLineWithThirdToken(String thirdToken) {
+        return "ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+thirdToken+TOKEN_SEPARATOR+"ole";
+    }
+
+    protected String logLineWithFourthToken(String fourthToken) {
+        return "ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+"ole"+TOKEN_SEPARATOR+fourthToken;
     }
 
     static class InvalidInputStringFormatException extends RuntimeException {
