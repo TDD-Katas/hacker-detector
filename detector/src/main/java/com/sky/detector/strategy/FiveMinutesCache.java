@@ -8,8 +8,10 @@ import com.sky.detector.data.Action;
 import com.sky.detector.data.DateConstants;
 import com.sky.detector.data.LoginAttempt;
 import com.sky.detector.data.LoginDate;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -39,15 +41,15 @@ public class FiveMinutesCache {
     public int getNumberOfFailedLogins(String ip) {
         int numberOfFailedLogins = 0;
         if (knownIps.containsKey(ip)) {
-            PastLoginDates loginDates = knownIps.get(ip);
-            numberOfFailedLogins = loginDates.size();
+            PastLoginDates pastLoginDates = knownIps.get(ip);
+            numberOfFailedLogins = pastLoginDates.size();
         } 
         
         return numberOfFailedLogins;
     }
     
     
-    private static class PastLoginDates extends HashSet<LoginDate> {
+    private static class PastLoginDates extends ArrayList<LoginDate> {
         private long timeToKeepEntries;
         
         public PastLoginDates(long timeToKeepEntries) {
@@ -63,9 +65,12 @@ public class FiveMinutesCache {
         private void deleteOldEntries(LoginDate e) {
             //Delete old entries
             LoginDate leastAcceptableDate = e.addTime(-timeToKeepEntries);
-            for (LoginDate loginDate : this) {
-                if (loginDate.isBefore(leastAcceptableDate)) {
-                    this.remove(loginDate);
+            
+            Iterator<LoginDate> iterator = this.iterator();
+            while (iterator.hasNext()) {
+                LoginDate existingDate = iterator.next();
+                if (existingDate.isBefore(leastAcceptableDate)) {
+                    iterator.remove();
                 }
             }
         }

@@ -7,7 +7,6 @@ package com.sky.detector.testhelpers;
 import com.sky.detector.data.Action;
 import com.sky.detector.data.LoginAttempt;
 import com.sky.detector.data.LoginDate;
-import java.util.Date;
 
 /**
  *
@@ -15,6 +14,7 @@ import java.util.Date;
  */
 public class LoginAttemptTestHelper {
     public static final String SOME_IP = "80.238.9.179";
+    public static final String SOME_OTHER_IP = "192.168.0.1";
     public static final LoginDate SOME_DATE = new LoginDate(133612947);
 
     public static LoginAttempt createSomeLoginAttempt() {

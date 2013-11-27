@@ -8,7 +8,7 @@ import com.sky.detector.data.Action;
 import com.sky.detector.data.LoginAttempt;
 import com.sky.detector.data.LoginDate;
 import com.sky.detector.exceptions.InvalidInputStringFormatException;
-import java.util.Date;
+import org.apache.commons.validator.routines.InetAddressValidator;
 import sun.net.util.IPAddressUtil;
 
 /**
@@ -35,7 +35,7 @@ public class LoglineAsLoginAttempt implements LoglineInterpreter {
     }
 
     protected String getValidIp(String ipToken) throws InvalidInputStringFormatException {
-        if (!IPAddressUtil.isIPv4LiteralAddress(ipToken)) {
+        if (!InetAddressValidator.getInstance().isValid(ipToken)) {
             throw new InvalidInputStringFormatException(
                     "The Ip has incorrect format");
         }

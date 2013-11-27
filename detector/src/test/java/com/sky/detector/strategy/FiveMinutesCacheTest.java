@@ -48,7 +48,7 @@ public class FiveMinutesCacheTest {
     @Test
     public void can_store_logins_from_different_ip() {
         String ip = SOME_IP;
-        String otherIp = SOME_IP;
+        String otherIp = SOME_OTHER_IP;
         
         cache.store(createFailedLoginAttemptFor(ip));
         cache.store(createFailedLoginAttemptFor(otherIp));
