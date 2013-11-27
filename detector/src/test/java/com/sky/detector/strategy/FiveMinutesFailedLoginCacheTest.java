@@ -45,6 +45,18 @@ public class FiveMinutesFailedLoginCacheTest {
     }
     
     @Test
+    public void can_store_logins_from_different_ip() {
+        String ip = SOME_IP;
+        String otherIp = SOME_IP;
+        
+        cache.store(createFailedLoginAttemptFor(ip));
+        cache.store(createFailedLoginAttemptFor(otherIp));
+        
+        assertThat(failedLoginsFor(ip), is(1));
+        assertThat(failedLoginsFor(otherIp), is(1));
+    }
+    
+    @Test
     public void when_storing_a_failed_login_should_delete_logins_older_then_five_minutes_for_same_ip() {
         String ip = SOME_IP;
         LoginDate date = SOME_DATE;
@@ -54,6 +66,7 @@ public class FiveMinutesFailedLoginCacheTest {
         
         assertThat(failedLoginsFor(ip), is(1));
     }
+    
     
     @Test
     public void can_store_multiple_logins_for_same_ip_if_not_older_than_five_minutes() {
@@ -65,6 +78,8 @@ public class FiveMinutesFailedLoginCacheTest {
         
         assertThat(failedLoginsFor(ip), is(2));
     }
+    
+    
     
     //~~~~~~~~ Test helpers
     
