@@ -36,7 +36,8 @@ public class BurstLoginDetectionStrategyTest {
     public void all_login_attempts_are_retained_in_a_five_minutes_cache() {
         LoginAttempt loginAttempt = createSomeLoginAttempt();
         FiveMinutesCache fiveMinutesCache = mock(FiveMinutesCache.class);
-        BurstLoginDetectionStrategy detectionStrategy = createStrategyWithGivenCache(fiveMinutesCache);
+        BurstLoginDetectionStrategy detectionStrategy = 
+                createStrategyWithGivenCache(fiveMinutesCache);
         
         detectionStrategy.isLoginOffensive(loginAttempt);
         
@@ -45,46 +46,19 @@ public class BurstLoginDetectionStrategyTest {
     
     //~~~~ Test helpers
 
-    protected BurstLoginDetectionStrategy createStrategyThatHasSeenFiveFailedLoginsFromIp(LoginAttempt loginAttempt) {
+    protected BurstLoginDetectionStrategy createStrategyThatHasSeenFiveFailedLoginsFromIp(
+            LoginAttempt loginAttempt) {
         FiveMinutesCache fiveMinutesCache = mock(FiveMinutesCache.class);
         when(fiveMinutesCache.getNumberOfFailedLogins(loginAttempt)).thenReturn(5);
-        BurstLoginDetectionStrategy detectionStrategy = createStrategyWithGivenCache(fiveMinutesCache);
+        BurstLoginDetectionStrategy detectionStrategy = 
+                createStrategyWithGivenCache(fiveMinutesCache);
         return detectionStrategy;
     }
 
-    protected BurstLoginDetectionStrategy createStrategyWithGivenCache(FiveMinutesCache fiveMinutesCache) {
-        BurstLoginDetectionStrategy detectionStrategy = new BurstLoginDetectionStrategy(fiveMinutesCache);
+    protected BurstLoginDetectionStrategy createStrategyWithGivenCache(
+            FiveMinutesCache fiveMinutesCache) {
+        BurstLoginDetectionStrategy detectionStrategy = 
+                new BurstLoginDetectionStrategy(fiveMinutesCache);
         return detectionStrategy;
-    }
-
-    
-    //~~~~ Production
-    
-     static class BurstLoginDetectionStrategy implements DetectionStrategy {
-        FiveMinutesCache lastFiveMinutes;
-
-        public BurstLoginDetectionStrategy(FiveMinutesCache lastFiveMinutes) {
-            this.lastFiveMinutes = lastFiveMinutes;
-        }
-        
-        public boolean isLoginOffensive(LoginAttempt loginAttempt) {
-            lastFiveMinutes.store(loginAttempt);
-            if (lastFiveMinutes.getNumberOfFailedLogins(loginAttempt) >= 5) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-    
-    static class FiveMinutesCache {
-        
-        public void store(LoginAttempt loginAttempt) {
-            
-        }
-        
-        public int getNumberOfFailedLogins(LoginAttempt loginAttempt) {
-            return 0;
-        }
     }
 }
