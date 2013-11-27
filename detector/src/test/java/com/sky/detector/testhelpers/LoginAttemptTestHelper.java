@@ -21,10 +21,18 @@ public class LoginAttemptTestHelper {
     }
     
     public static LoginAttempt createFailedLoginAttemptFor(String ip) {
+        return createLoginAttemptFor(ip, Action.SIGNIN_FAILURE);
+    }
+    
+    public static LoginAttempt createSuccesfulLoginAttemptFor(String ip) {
+        return createLoginAttemptFor(ip, Action.SIGNIN_SUCCESS);
+    }
+    
+    public static LoginAttempt createLoginAttemptFor(String ip, Action action) {
         LoginAttempt loginAttempt = new LoginAttempt(
                 ip, 
                 new Date(133612947), 
-                Action.SIGNIN_FAILURE, 
+                action, 
                 "Andy.Branning");
         return loginAttempt;
     }

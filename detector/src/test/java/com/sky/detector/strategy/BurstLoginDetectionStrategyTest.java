@@ -34,7 +34,7 @@ public class BurstLoginDetectionStrategyTest {
     @Test
     public void all_login_attempts_are_retained_in_a_five_minutes_cache() {
         LoginAttempt loginAttempt = createSomeLoginAttempt();
-        FiveMinutesCache fiveMinutesCache = mock(FiveMinutesCache.class);
+        FiveMinutesFailedLoginsCache fiveMinutesCache = mock(FiveMinutesFailedLoginsCache.class);
         BurstLoginDetectionStrategy detectionStrategy = 
                 createStrategyWithGivenCache(fiveMinutesCache);
         
@@ -47,7 +47,7 @@ public class BurstLoginDetectionStrategyTest {
 
     protected BurstLoginDetectionStrategy createStrategyThatHasSeenFiveFailedLoginsFromIp(
             LoginAttempt loginAttempt) {
-        FiveMinutesCache fiveMinutesCache = mock(FiveMinutesCache.class);
+        FiveMinutesFailedLoginsCache fiveMinutesCache = mock(FiveMinutesFailedLoginsCache.class);
         when(fiveMinutesCache.getNumberOfFailedLogins(loginAttempt.getIp())).thenReturn(5);
         BurstLoginDetectionStrategy detectionStrategy = 
                 createStrategyWithGivenCache(fiveMinutesCache);
@@ -55,7 +55,7 @@ public class BurstLoginDetectionStrategyTest {
     }
 
     protected BurstLoginDetectionStrategy createStrategyWithGivenCache(
-            FiveMinutesCache fiveMinutesCache) {
+            FiveMinutesFailedLoginsCache fiveMinutesCache) {
         BurstLoginDetectionStrategy detectionStrategy = 
                 new BurstLoginDetectionStrategy(fiveMinutesCache);
         return detectionStrategy;
