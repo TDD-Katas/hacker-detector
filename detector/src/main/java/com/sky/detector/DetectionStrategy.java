@@ -5,7 +5,6 @@
 package com.sky.detector;
 
 import com.sky.detector.data.LoginAttempt;
-import com.sky.detector.data.LoginAttempt;
 
 /**
  *
