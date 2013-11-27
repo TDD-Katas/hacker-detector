@@ -15,7 +15,7 @@ public class FiveMinutesCache {
     public void store(LoginAttempt loginAttempt) {
     }
 
-    public int getNumberOfFailedLogins(LoginAttempt loginAttempt) {
+    public int getNumberOfFailedLogins(String ip) {
         return 0;
     }
     

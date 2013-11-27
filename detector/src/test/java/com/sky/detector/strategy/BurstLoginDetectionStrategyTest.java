@@ -49,7 +49,7 @@ public class BurstLoginDetectionStrategyTest {
     protected BurstLoginDetectionStrategy createStrategyThatHasSeenFiveFailedLoginsFromIp(
             LoginAttempt loginAttempt) {
         FiveMinutesCache fiveMinutesCache = mock(FiveMinutesCache.class);
-        when(fiveMinutesCache.getNumberOfFailedLogins(loginAttempt)).thenReturn(5);
+        when(fiveMinutesCache.getNumberOfFailedLogins(loginAttempt.getIp())).thenReturn(5);
         BurstLoginDetectionStrategy detectionStrategy = 
                 createStrategyWithGivenCache(fiveMinutesCache);
         return detectionStrategy;

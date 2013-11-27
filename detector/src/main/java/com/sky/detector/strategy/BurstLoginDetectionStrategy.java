@@ -21,7 +21,7 @@ public class BurstLoginDetectionStrategy implements DetectionStrategy {
 
     public boolean isLoginOffensive(LoginAttempt loginAttempt) {
         lastFiveMinutes.store(loginAttempt);
-        if (lastFiveMinutes.getNumberOfFailedLogins(loginAttempt) >=
+        if (lastFiveMinutes.getNumberOfFailedLogins(loginAttempt.getIp()) >=
                 MAXIMUM_NUMBER_OF_FAILED_LOGINS) {
             return true;
         } else {

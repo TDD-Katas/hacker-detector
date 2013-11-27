@@ -4,8 +4,6 @@
  */
 package com.sky.detector.data;
 
-import com.sky.detector.data.LoginAttempt;
-import com.sky.detector.data.LoglineAsLoginAttempt;
 import com.sky.detector.exceptions.InvalidInputStringFormatException;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
@@ -17,20 +15,32 @@ import static org.junit.Assert.*;
  */
 public class LoglineAsLoginAttemptTest {
     public static final String SOME_STRING = "somestring";
+    public static final String SOME_IP = "192.168.0.1";
+    public static final String SOME_DATE = "133612947";
+    public static final String SOME_ACTION = "SIGNIN_FAILURE";
+    public static final String SOME_USERNAME = "Dave.Branning";
     
     @Test(expected = InvalidInputStringFormatException.class)
-    public void throw_invalid_syntax_if_logline_does_not_have_4_tokens() {
+    public void fail_with_invalid_syntax_if_logline_does_not_have_4_tokens() {
         asLoginAttempt(SOME_STRING);
     }
     
     @Test
     public void first_token_is_login_attempt_ip() {
-        String firstToken = SOME_STRING;
+        String firstToken = SOME_IP;
         String logLine = loglineWithPresetToken(0, firstToken);
         
         LoginAttempt loginAttempt = asLoginAttempt(logLine);
         
         assertThat(loginAttempt.getIp(), is(firstToken));
+    }
+    
+    @Test(expected = InvalidInputStringFormatException.class)
+    public void fail_with_invalid_syntax_if_ip_is_invalid() {
+        String ipToken = SOME_STRING;
+        String logLine = loglineWithPresetToken(0, ipToken);
+        
+        asLoginAttempt(logLine);
     }
     
     @Test
@@ -42,6 +52,7 @@ public class LoglineAsLoginAttemptTest {
         
         assertThat(loginAttempt.getTime(), is(secondToken));
     }
+    
     
     @Test
     public void third_token_is_login_attempt_action() {
@@ -73,17 +84,13 @@ public class LoglineAsLoginAttemptTest {
     
     private String loglineWithPresetToken(int tokenPosition, String token) {
         StringBuilder st = new StringBuilder();
-        for (int i = 0; i < LoglineAsLoginAttempt.NUMBER_OF_TOKENS; i++) {
-            if (i == tokenPosition) {
-                st.append(token);
-            } else {
-                st.append("ole");
-            }
+        String[] tokens = {SOME_IP, SOME_DATE, SOME_ACTION, SOME_USERNAME};
+        tokens[tokenPosition] = token;
+        
+        for (String localToken : tokens) {
+            st.append(localToken);
             st.append(LoglineAsLoginAttempt.TOKEN_SEPARATOR);
         }
-        
         return st.toString();
     }
-
-
 }
