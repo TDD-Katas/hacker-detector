@@ -4,7 +4,6 @@
  */
 package com.sky.detector.strategy;
 
-import com.sky.detector.DetectionStrategy;
 import com.sky.detector.data.LoginAttempt;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;

@@ -5,6 +5,7 @@
 package com.sky.detector.data;
 
 import com.sky.detector.exceptions.InvalidInputStringFormatException;
+import java.util.Date;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -17,7 +18,7 @@ public class LoglineAsLoginAttemptTest {
     public static final String SOME_STRING = "somestring";
     public static final String SOME_IP = "192.168.0.1";
     public static final String SOME_DATE = "133612947";
-    public static final String SOME_ACTION = "SIGNIN_FAILURE";
+    public static final String SOME_ACTION = Action.SIGNIN_FAILURE.toString();
     public static final String SOME_USERNAME = "Dave.Branning";
     
     @Test(expected = InvalidInputStringFormatException.class)
@@ -45,23 +46,38 @@ public class LoglineAsLoginAttemptTest {
     
     @Test
     public void second_token_is_login_attempt_time() {
-        String secondToken = SOME_STRING;
-        String logLine = loglineWithPresetToken(1, secondToken);
+        Date secondToken = new Date(100);
+        String logLine = loglineWithPresetToken(1, secondToken.getTime()+"");
         
         LoginAttempt loginAttempt = asLoginAttempt(logLine);
         
-        assertThat(loginAttempt.getTime(), is(secondToken));
+        assertThat(loginAttempt.getDate(), is(secondToken));
     }
     
+    @Test(expected = InvalidInputStringFormatException.class)
+    public void fail_with_invalid_syntax_if_date_is_invalid() {
+        String dateToken = SOME_STRING;
+        String logLine = loglineWithPresetToken(1, dateToken);
+        
+        asLoginAttempt(logLine);
+    }
     
     @Test
     public void third_token_is_login_attempt_action() {
-        String thirdToken = SOME_STRING;
-        String logLine = loglineWithPresetToken(2, thirdToken);
+        Action thirdToken = Action.SIGNIN_FAILURE;
+        String logLine = loglineWithPresetToken(2, thirdToken.toString());
         
         LoginAttempt loginAttempt = asLoginAttempt(logLine);
         
         assertThat(loginAttempt.getAction(), is(thirdToken));
+    }
+    
+    @Test(expected = InvalidInputStringFormatException.class)
+    public void fail_with_invalid_syntax_if_action_is_invalid() {
+        String actionToken = SOME_STRING;
+        String logLine = loglineWithPresetToken(2, actionToken);
+        
+        asLoginAttempt(logLine);
     }
     
     @Test

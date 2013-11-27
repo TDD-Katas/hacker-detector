@@ -16,5 +16,8 @@ public class InvalidInputStringFormatException extends RuntimeException {
     public InvalidInputStringFormatException(String message) {
         super(message);
     }
-    
+
+    public InvalidInputStringFormatException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

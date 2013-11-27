@@ -11,7 +11,9 @@ import com.sky.detector.data.LoginAttempt;
  * @author Iulian Ghionoiu <iulian.ghionoiu@exenne.ro>
  */
 public class FiveMinutesCache {
-
+    
+    
+    
     public void store(LoginAttempt loginAttempt) {
     }
 

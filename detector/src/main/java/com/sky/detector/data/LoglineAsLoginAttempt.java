@@ -5,6 +5,7 @@
 package com.sky.detector.data;
 
 import com.sky.detector.exceptions.InvalidInputStringFormatException;
+import java.util.Date;
 import sun.net.util.IPAddressUtil;
 
 /**
@@ -22,17 +23,40 @@ public class LoglineAsLoginAttempt implements LoglineInterpreter {
             throw new InvalidInputStringFormatException(
                     "Could not correctly split the log line into tokens");
         } else {
-            String ip = tokens[0];
-            ensureIpIsValid(ip);
+            String ip = getValidIp(tokens[0]);
+            Date date = getValidDate(tokens[1]);
+            Action action = getValidAction(tokens[2]);
             
-            return new LoginAttempt(ip, tokens[1], tokens[2], tokens[3]);
+            return new LoginAttempt(ip, date, action, tokens[3]);
         }
     }
 
-    protected void ensureIpIsValid(String ip) throws InvalidInputStringFormatException {
-        if (!IPAddressUtil.isIPv4LiteralAddress(ip)) {
+    protected String getValidIp(String ipToken) throws InvalidInputStringFormatException {
+        if (!IPAddressUtil.isIPv4LiteralAddress(ipToken)) {
             throw new InvalidInputStringFormatException(
-                    "The Ip is in incorrect format");
+                    "The Ip has incorrect format");
+        }
+        
+        return ipToken;
+    }
+    
+    protected Date getValidDate(String dateToken) throws InvalidInputStringFormatException {
+        try {
+            long timeFromEpoch = Long.parseLong(dateToken);
+            return new Date(timeFromEpoch);
+        } catch (NumberFormatException ex) {
+            throw new InvalidInputStringFormatException(
+                    "The Date has incorrect format ", ex);
+        }
+    }
+    
+    protected Action getValidAction(String dateToken) throws InvalidInputStringFormatException {
+        try {
+            Action action = Action.valueOf(dateToken);
+            return action;
+        } catch (IllegalArgumentException ex) {
+            throw new InvalidInputStringFormatException(
+                    "The Action has incorrect format ", ex);
         }
     }
     

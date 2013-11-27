@@ -4,19 +4,21 @@
  */
 package com.sky.detector.data;
 
+import java.util.Date;
+
 /**
  *
  * @author Iulian Ghionoiu <iulian.ghionoiu@exenne.ro>
  */
 public class LoginAttempt {
     private String ip;
-    private String time;
-    private String action;
+    private Date date;
+    private Action action;
     private String username;
 
-    public LoginAttempt(String ip, String time, String action, String username) {
+    public LoginAttempt(String ip, Date date, Action action, String username) {
         this.ip = ip;
-        this.time = time;
+        this.date = date;
         this.action = action;
         this.username = username;
     }
@@ -25,11 +27,11 @@ public class LoginAttempt {
         return ip;
     }
 
-    public String getTime() {
-        return time;
+    public Date getDate() {
+        return date;
     }
 
-    public String getAction() {
+    public Action getAction() {
         return action;
     }
 
