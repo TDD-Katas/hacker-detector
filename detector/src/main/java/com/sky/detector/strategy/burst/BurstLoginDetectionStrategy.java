@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sky.detector.strategy;
+package com.sky.detector.strategy.burst;
 
-import com.sky.detector.DetectionStrategy;
 import com.sky.detector.data.LoginAttempt;
+import com.sky.detector.strategy.DetectionStrategy;
 
 public class BurstLoginDetectionStrategy implements DetectionStrategy {
     public static final int MAXIMUM_NUMBER_OF_FAILED_LOGINS = 5;

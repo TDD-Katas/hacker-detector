@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sky.detector.strategy;
+package com.sky.detector.strategy.burst;
 
 import com.sky.detector.data.DateConstants;
 import com.sky.detector.data.LoginAttempt;
@@ -46,7 +46,7 @@ public class FiveMinutesCacheTest {
     }
     
     @Test
-    public void can_store_logins_from_different_ip() {
+    public void should_store_logins_from_different_ip() {
         String ip = SOME_IP;
         String otherIp = SOME_OTHER_IP;
         

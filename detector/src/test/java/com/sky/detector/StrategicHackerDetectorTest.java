@@ -4,6 +4,7 @@
  */
 package com.sky.detector;
 
+import com.sky.detector.strategy.DetectionStrategy;
 import com.sky.detector.data.LoginAttempt;
 import com.sky.detector.logline.LoglineInterpreter;
 import static org.hamcrest.CoreMatchers.is;

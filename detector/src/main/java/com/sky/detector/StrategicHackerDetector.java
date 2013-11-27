@@ -4,10 +4,11 @@
  */
 package com.sky.detector;
 
+import com.sky.detector.strategy.DetectionStrategy;
 import com.sky.detector.data.LoginAttempt;
 import com.sky.detector.logline.LoglineAsLoginAttempt;
 import com.sky.detector.logline.LoglineInterpreter;
-import com.sky.detector.strategy.BurstLoginDetectionStrategy;
+import com.sky.detector.strategy.burst.BurstLoginDetectionStrategy;
 
 /**
  *

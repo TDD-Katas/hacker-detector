@@ -2,12 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sky.detector.strategy;
+package com.sky.detector.strategy.burst;
 
 import com.sky.detector.data.Action;
 import com.sky.detector.data.DateConstants;
 import com.sky.detector.data.LoginAttempt;
+import com.sky.detector.data.LoginDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -45,6 +48,34 @@ public class FiveMinutesCache {
     private void ensurePastLoginDatesInitialized(String ip) {
         if (!knownIps.containsKey(ip)) {
             knownIps.put(ip, new PastLoginDates(TIME_TO_KEEP_PAST_LOGINS));
+        }
+    }
+    
+    //~~~~~~~~ 
+    
+    static class PastLoginDates extends ArrayList<LoginDate> {
+        private long timeToKeepEntries;
+
+        public PastLoginDates(long timeToKeepEntries) {
+            this.timeToKeepEntries = timeToKeepEntries;
+        }
+
+        @Override
+        public boolean add(LoginDate e) {
+            deleteOldEntries(e);
+            return super.add(e);
+        }
+
+        private void deleteOldEntries(LoginDate e) {
+            //Delete old entries
+            LoginDate leastAcceptableDate = e.addTime(-timeToKeepEntries);
+            Iterator<LoginDate> iterator = this.iterator();
+            while (iterator.hasNext()) {
+                LoginDate existingDate = iterator.next();
+                if (existingDate.isBefore(leastAcceptableDate)) {
+                    iterator.remove();
+                }
+            }
         }
     }
 }
