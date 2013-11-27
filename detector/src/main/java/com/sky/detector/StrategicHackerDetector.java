@@ -5,8 +5,8 @@
 package com.sky.detector;
 
 import com.sky.detector.data.LoginAttempt;
-import com.sky.detector.data.LoglineAsLoginAttempt;
-import com.sky.detector.data.LoglineInterpreter;
+import com.sky.detector.logline.LoglineAsLoginAttempt;
+import com.sky.detector.logline.LoglineInterpreter;
 import com.sky.detector.strategy.BurstLoginDetectionStrategy;
 
 /**

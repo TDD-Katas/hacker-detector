@@ -2,8 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sky.detector.data;
+package com.sky.detector.logline;
 
+import com.sky.detector.data.Action;
+import com.sky.detector.data.LoginAttempt;
+import com.sky.detector.data.LoginDate;
+import com.sky.detector.logline.LoglineAsLoginAttempt;
 import com.sky.detector.exceptions.InvalidInputStringFormatException;
 import java.util.Date;
 import static org.hamcrest.CoreMatchers.is;
