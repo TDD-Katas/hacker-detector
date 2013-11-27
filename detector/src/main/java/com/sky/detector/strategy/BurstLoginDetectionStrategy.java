@@ -9,13 +9,13 @@ import com.sky.detector.data.LoginAttempt;
 
 public class BurstLoginDetectionStrategy implements DetectionStrategy {
     public static final int MAXIMUM_NUMBER_OF_FAILED_LOGINS = 5;
-    FiveMinutesFailedLoginCache lastFiveMinutes;
+    FiveMinutesCache lastFiveMinutes;
 
     public BurstLoginDetectionStrategy() {
-        this(new FiveMinutesFailedLoginCache());
+        this(new FiveMinutesCache());
     }
     
-    public BurstLoginDetectionStrategy(FiveMinutesFailedLoginCache lastFiveMinutes) {
+    public BurstLoginDetectionStrategy(FiveMinutesCache lastFiveMinutes) {
         this.lastFiveMinutes = lastFiveMinutes;
     }
 

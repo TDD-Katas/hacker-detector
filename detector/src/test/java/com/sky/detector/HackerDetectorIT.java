@@ -23,4 +23,17 @@ public class HackerDetectorIT {
         
         assertThat(response, is(""));
     }
+    
+    @Test
+    public void the_fifth_consecutive_login_attempt_is_considered_offensive() {
+        HackerDetector hackerDetector = new StrategicHackerDetector();
+        String logline = "80.238.9.179,133612947,SIGNIN_FAILURE,Dave.Branning";
+        
+        String response = "";
+        for (int i = 0; i < 5; i++) {
+            response = hackerDetector.parseLine(logline);
+        }
+        
+        assertThat(response, is("80.238.9.179"));
+    }
 }

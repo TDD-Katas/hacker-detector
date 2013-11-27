@@ -4,6 +4,7 @@
  */
 package com.sky.detector.strategy;
 
+import com.sky.detector.data.DateConstants;
 import com.sky.detector.data.LoginAttempt;
 import com.sky.detector.data.LoginDate;
 import org.junit.Test;
@@ -16,8 +17,8 @@ import org.junit.Before;
  *
  * @author Iulian Ghionoiu <iulian.ghionoiu@exenne.ro>
  */
-public class FiveMinutesFailedLoginCacheTest {
-    FiveMinutesFailedLoginCache cache;
+public class FiveMinutesCacheTest {
+    FiveMinutesCache cache;
     
     @Before
     public void setUp() {
@@ -62,7 +63,7 @@ public class FiveMinutesFailedLoginCacheTest {
         LoginDate date = SOME_DATE;
         
         cache.store(createFailedLoginAttemptFor(ip, date));
-        cache.store(createFailedLoginAttemptFor(ip, date.addMinutes(6)));
+        cache.store(createFailedLoginAttemptFor(ip, date.addTime(6* DateConstants.MINUTE)));
         
         assertThat(failedLoginsFor(ip), is(1));
     }
@@ -74,7 +75,7 @@ public class FiveMinutesFailedLoginCacheTest {
         LoginDate date = SOME_DATE;
         
         cache.store(createFailedLoginAttemptFor(ip, date));
-        cache.store(createFailedLoginAttemptFor(ip, date.addMinutes(1)));
+        cache.store(createFailedLoginAttemptFor(ip, date.addTime(DateConstants.MINUTE)));
         
         assertThat(failedLoginsFor(ip), is(2));
     }
@@ -87,8 +88,8 @@ public class FiveMinutesFailedLoginCacheTest {
         return cache.getNumberOfFailedLogins(ip);
     }
 
-    protected FiveMinutesFailedLoginCache createEmptyCache() {
-        return new FiveMinutesFailedLoginCache();
+    protected FiveMinutesCache createEmptyCache() {
+        return new FiveMinutesCache();
     }
 
 }
