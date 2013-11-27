@@ -10,6 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import static com.sky.detector.testhelpers.LoginAttemptTestHelper.*;
 
 /**
  *
@@ -42,10 +43,6 @@ public class StrategicHackerDetectorTest {
 
     //~~~~~ Test helpers
     
-    protected LoginAttempt createSomeLoginAttempt() {
-        return new LoginAttempt("ole", "ole", "ole", "ole");
-    }
-
     protected HackerDetector createDetector(boolean isLoginOffending) {
         return createDetectorWithPreparedLogin(createSomeLoginAttempt(), isLoginOffending);
     }
