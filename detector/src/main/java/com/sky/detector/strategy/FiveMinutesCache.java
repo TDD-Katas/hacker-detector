@@ -7,11 +7,7 @@ package com.sky.detector.strategy;
 import com.sky.detector.data.Action;
 import com.sky.detector.data.DateConstants;
 import com.sky.detector.data.LoginAttempt;
-import com.sky.detector.data.LoginDate;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -19,7 +15,7 @@ import java.util.Map;
  * @author Iulian Ghionoiu <iulian.ghionoiu@exenne.ro>
  */
 public class FiveMinutesCache {
-    public static final long TIME_TO_KEEP_LOGS = 5*DateConstants.MINUTE;
+    public static final long TIME_TO_KEEP_PAST_LOGINS = 5*DateConstants.MINUTE;
     Map<String, PastLoginDates> knownIps;
 
     public FiveMinutesCache() {
@@ -29,9 +25,7 @@ public class FiveMinutesCache {
     public void store(LoginAttempt loginAttempt) {
         if (loginAttempt.getAction() == Action.SIGNIN_FAILURE) {
             String ip = loginAttempt.getIp();
-            if (!knownIps.containsKey(ip)) {
-                knownIps.put(loginAttempt.getIp(), new PastLoginDates(TIME_TO_KEEP_LOGS));
-            }
+            ensurePastLoginDatesInitialized(ip);
             
             PastLoginDates pastLoginDates = knownIps.get(ip);
             pastLoginDates.add(loginAttempt.getDate());
@@ -47,32 +41,10 @@ public class FiveMinutesCache {
         
         return numberOfFailedLogins;
     }
-    
-    
-    private static class PastLoginDates extends ArrayList<LoginDate> {
-        private long timeToKeepEntries;
-        
-        public PastLoginDates(long timeToKeepEntries) {
-            this.timeToKeepEntries = timeToKeepEntries;
-        }
 
-        @Override
-        public boolean add(LoginDate e) {
-            deleteOldEntries(e);
-            return super.add(e);
-        }
-
-        private void deleteOldEntries(LoginDate e) {
-            //Delete old entries
-            LoginDate leastAcceptableDate = e.addTime(-timeToKeepEntries);
-            
-            Iterator<LoginDate> iterator = this.iterator();
-            while (iterator.hasNext()) {
-                LoginDate existingDate = iterator.next();
-                if (existingDate.isBefore(leastAcceptableDate)) {
-                    iterator.remove();
-                }
-            }
+    private void ensurePastLoginDatesInitialized(String ip) {
+        if (!knownIps.containsKey(ip)) {
+            knownIps.put(ip, new PastLoginDates(TIME_TO_KEEP_PAST_LOGINS));
         }
     }
 }

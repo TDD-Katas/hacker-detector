@@ -9,7 +9,6 @@ import com.sky.detector.data.LoginAttempt;
 import com.sky.detector.data.LoginDate;
 import com.sky.detector.exceptions.InvalidInputStringFormatException;
 import org.apache.commons.validator.routines.InetAddressValidator;
-import sun.net.util.IPAddressUtil;
 
 /**
  *
