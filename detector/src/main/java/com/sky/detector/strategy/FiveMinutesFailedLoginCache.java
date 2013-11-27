@@ -13,10 +13,10 @@ import java.util.Set;
  *
  * @author Iulian Ghionoiu <iulian.ghionoiu@exenne.ro>
  */
-public class FiveMinutesFailedLoginsCache {
+public class FiveMinutesFailedLoginCache {
     Set<String> failedLogins;
 
-    public FiveMinutesFailedLoginsCache() {
+    public FiveMinutesFailedLoginCache() {
         failedLogins = new HashSet<String>();
     }
     

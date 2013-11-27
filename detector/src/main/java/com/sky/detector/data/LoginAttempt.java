@@ -12,11 +12,11 @@ import java.util.Date;
  */
 public class LoginAttempt {
     private String ip;
-    private Date date;
+    private LoginDate date;
     private Action action;
     private String username;
 
-    public LoginAttempt(String ip, Date date, Action action, String username) {
+    public LoginAttempt(String ip, LoginDate date, Action action, String username) {
         this.ip = ip;
         this.date = date;
         this.action = action;
@@ -27,7 +27,7 @@ public class LoginAttempt {
         return ip;
     }
 
-    public Date getDate() {
+    public LoginDate getDate() {
         return date;
     }
 

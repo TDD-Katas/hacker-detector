@@ -16,10 +16,10 @@ import static org.junit.Assert.*;
  */
 public class LoglineAsLoginAttemptTest {
     public static final String SOME_STRING = "somestring";
-    public static final String SOME_IP = "192.168.0.1";
-    public static final String SOME_DATE = "133612947";
-    public static final String SOME_ACTION = Action.SIGNIN_FAILURE.toString();
-    public static final String SOME_USERNAME = "Dave.Branning";
+    public static final String SOME_IP_TOKEN = "192.168.0.1";
+    public static final String SOME_DATE_TOKEN = "133612947";
+    public static final String SOME_ACTION_TOKEN = Action.SIGNIN_FAILURE.toString();
+    public static final String SOME_USERNAME_TOKEN = "Dave.Branning";
     
     @Test(expected = InvalidInputStringFormatException.class)
     public void fail_with_invalid_syntax_if_logline_does_not_have_4_tokens() {
@@ -28,7 +28,7 @@ public class LoglineAsLoginAttemptTest {
     
     @Test
     public void first_token_is_login_attempt_ip() {
-        String firstToken = SOME_IP;
+        String firstToken = SOME_IP_TOKEN;
         String logLine = loglineWithPresetToken(0, firstToken);
         
         LoginAttempt loginAttempt = asLoginAttempt(logLine);
@@ -46,7 +46,7 @@ public class LoglineAsLoginAttemptTest {
     
     @Test
     public void second_token_is_login_attempt_time() {
-        Date secondToken = new Date(100);
+        LoginDate secondToken = new LoginDate(100);
         String logLine = loglineWithPresetToken(1, secondToken.getTime()+"");
         
         LoginAttempt loginAttempt = asLoginAttempt(logLine);
@@ -100,7 +100,7 @@ public class LoglineAsLoginAttemptTest {
     
     private String loglineWithPresetToken(int tokenPosition, String token) {
         StringBuilder st = new StringBuilder();
-        String[] tokens = {SOME_IP, SOME_DATE, SOME_ACTION, SOME_USERNAME};
+        String[] tokens = {SOME_IP_TOKEN, SOME_DATE_TOKEN, SOME_ACTION_TOKEN, SOME_USERNAME_TOKEN};
         tokens[tokenPosition] = token;
         
         for (String localToken : tokens) {

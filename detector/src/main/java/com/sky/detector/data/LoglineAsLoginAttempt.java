@@ -24,7 +24,7 @@ public class LoglineAsLoginAttempt implements LoglineInterpreter {
                     "Could not correctly split the log line into tokens");
         } else {
             String ip = getValidIp(tokens[0]);
-            Date date = getValidDate(tokens[1]);
+            LoginDate date = getValidDate(tokens[1]);
             Action action = getValidAction(tokens[2]);
             
             return new LoginAttempt(ip, date, action, tokens[3]);
@@ -40,10 +40,10 @@ public class LoglineAsLoginAttempt implements LoglineInterpreter {
         return ipToken;
     }
     
-    protected Date getValidDate(String dateToken) throws InvalidInputStringFormatException {
+    protected LoginDate getValidDate(String dateToken) throws InvalidInputStringFormatException {
         try {
             long timeFromEpoch = Long.parseLong(dateToken);
-            return new Date(timeFromEpoch);
+            return new LoginDate(timeFromEpoch);
         } catch (NumberFormatException ex) {
             throw new InvalidInputStringFormatException(
                     "The Date has incorrect format ", ex);
