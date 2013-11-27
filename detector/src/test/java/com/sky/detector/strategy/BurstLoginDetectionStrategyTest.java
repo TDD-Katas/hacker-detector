@@ -4,12 +4,7 @@
  */
 package com.sky.detector.strategy;
 
-import com.sky.detector.data.LoginAttempt;
 import static org.hamcrest.CoreMatchers.is;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -21,7 +16,13 @@ public class BurstLoginDetectionStrategyTest {
     
     @Test
     public void a_login_attempt_is_offensive_if_the_same_ip_had_failed_login_5_or_more_times_in_a_5_minute_period() {
+        int numberOfFailedLoginInTheLastFiveMinutes = 5;
         
-        assertThat(true, is(true));
+        boolean isOffensive = false;
+        if (numberOfFailedLoginInTheLastFiveMinutes >= 5) {
+            isOffensive = true;
+        }
+        
+        assertThat(isOffensive, is(true));
     }
 }
