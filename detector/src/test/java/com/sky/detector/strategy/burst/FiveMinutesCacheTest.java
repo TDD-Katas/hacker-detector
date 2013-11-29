@@ -58,7 +58,7 @@ public class FiveMinutesCacheTest {
     }
     
     @Test
-    public void when_storing_a_failed_login_should_delete_logins_older_then_five_minutes_for_same_ip() {
+    public void when_storing_a_failed_login_should_delete_logins_older_then_five_minutes() {
         String ip = SOME_IP;
         LoginDate date = SOME_DATE;
         
