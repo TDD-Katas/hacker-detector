@@ -47,6 +47,8 @@ Thus, classes like IPAddress, LoginDate and Action, had appeared. These are valu
 When all acceptance tests have been passed I then turned to writing tests in order to reduce the memory usage of the application
 Thus, a test like "when_storing_a_failed_login_should_delete_logins_older_then_five_minutes" pushed the design towards a more efficient implementation.
 
+All code was written under Git version control system, so you can browse the history to see how exactly I had performed the exercise.
+
 OTHER THOUGHTS
 
 What I found interesting about this exercise was that converting and validating the input took almost as many test as the actual business logic.
