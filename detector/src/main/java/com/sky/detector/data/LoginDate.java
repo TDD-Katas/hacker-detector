@@ -23,6 +23,10 @@ public class LoginDate {
         return new LoginDate(time+addedTime);
     }
     
+    public LoginDate substractTime(long substractedTime) {
+        return new LoginDate(time-substractedTime);
+    }
+    
     public boolean isBefore(LoginDate otherDate) {
         return this.time < otherDate.time;
     }

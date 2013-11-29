@@ -69,7 +69,7 @@ public class FiveMinutesCacheTest {
         cache.store(createFailedLoginAttemptFor(ip, date.addTime(6* DateConstants.MINUTE)));
         
         assertThat(failedLoginsFor(ip), is(1));
-        assertThat(failedLoginsFor(otherIp), is(1));
+        assertThat(failedLoginsFor(otherIp), is(0));
     }
     
     
