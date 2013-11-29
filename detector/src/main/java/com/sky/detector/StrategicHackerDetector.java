@@ -31,7 +31,7 @@ public class StrategicHackerDetector implements HackerDetector {
     public String parseLine(String line) {
         LoginAttempt loginAttempt = loglineInterpreter.convert(line);
         if (detectionStrategy.isLoginOffensive(loginAttempt)) {
-            return loginAttempt.getIp();
+            return loginAttempt.getIp().getRepresentation();
         } else {
             return "";
         }

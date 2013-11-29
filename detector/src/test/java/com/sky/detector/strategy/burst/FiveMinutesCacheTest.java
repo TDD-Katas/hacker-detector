@@ -5,6 +5,7 @@
 package com.sky.detector.strategy.burst;
 
 import com.sky.detector.data.DateConstants;
+import com.sky.detector.data.IPAddress;
 import com.sky.detector.data.LoginAttempt;
 import com.sky.detector.data.LoginDate;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class FiveMinutesCacheTest {
     
     @Test
     public void should_not_store_a_successful_login_attempt() {
-        String ip = SOME_IP;
+        IPAddress ip = SOME_IP;
         LoginAttempt loginAttempt = createSuccesfulLoginAttemptFor(ip);
         
         cache.store(loginAttempt);
@@ -37,7 +38,7 @@ public class FiveMinutesCacheTest {
     
     @Test
     public void should_store_a_failed_login_attempt() {
-        String ip = SOME_IP;
+        IPAddress ip = SOME_IP;
         LoginAttempt loginAttempt = createFailedLoginAttemptFor(ip);
         
         cache.store(loginAttempt);
@@ -47,8 +48,8 @@ public class FiveMinutesCacheTest {
     
     @Test
     public void should_store_logins_from_different_ip() {
-        String ip = SOME_IP;
-        String otherIp = SOME_OTHER_IP;
+        IPAddress ip = SOME_IP;
+        IPAddress otherIp = SOME_OTHER_IP;
         
         cache.store(createFailedLoginAttemptFor(ip));
         cache.store(createFailedLoginAttemptFor(otherIp));
@@ -59,19 +60,22 @@ public class FiveMinutesCacheTest {
     
     @Test
     public void when_storing_a_failed_login_should_delete_logins_older_then_five_minutes() {
-        String ip = SOME_IP;
+        IPAddress ip = SOME_IP;
+        IPAddress otherIp = SOME_OTHER_IP;
         LoginDate date = SOME_DATE;
         
         cache.store(createFailedLoginAttemptFor(ip, date));
+        cache.store(createFailedLoginAttemptFor(otherIp, date));
         cache.store(createFailedLoginAttemptFor(ip, date.addTime(6* DateConstants.MINUTE)));
         
         assertThat(failedLoginsFor(ip), is(1));
+        assertThat(failedLoginsFor(otherIp), is(1));
     }
     
     
     @Test
     public void can_store_multiple_logins_for_same_ip_if_not_older_than_five_minutes() {
-        String ip = SOME_IP;
+        IPAddress ip = SOME_IP;
         LoginDate date = SOME_DATE;
         
         cache.store(createFailedLoginAttemptFor(ip, date));
@@ -84,7 +88,7 @@ public class FiveMinutesCacheTest {
     
     //~~~~~~~~ Test helpers
     
-    protected int failedLoginsFor(String ip) {
+    protected int failedLoginsFor(IPAddress ip) {
         return cache.getNumberOfFailedLogins(ip);
     }
 

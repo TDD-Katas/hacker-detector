@@ -5,11 +5,10 @@
 package com.sky.detector.logline;
 
 import com.sky.detector.data.Action;
+import com.sky.detector.data.IPAddress;
 import com.sky.detector.data.LoginAttempt;
 import com.sky.detector.data.LoginDate;
-import com.sky.detector.logline.LoglineAsLoginAttempt;
 import com.sky.detector.exceptions.InvalidInputStringFormatException;
-import java.util.Date;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -32,8 +31,8 @@ public class LoglineAsLoginAttemptTest {
     
     @Test
     public void first_token_is_login_attempt_ip() {
-        String firstToken = SOME_IP_TOKEN;
-        String logLine = loglineWithPresetToken(0, firstToken);
+        IPAddress firstToken = new IPAddress(SOME_IP_TOKEN);
+        String logLine = loglineWithPresetToken(0, firstToken.getRepresentation());
         
         LoginAttempt loginAttempt = asLoginAttempt(logLine);
         

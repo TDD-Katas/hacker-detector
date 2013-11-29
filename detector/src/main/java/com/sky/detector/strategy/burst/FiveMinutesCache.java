@@ -6,6 +6,7 @@ package com.sky.detector.strategy.burst;
 
 import com.sky.detector.data.Action;
 import com.sky.detector.data.DateConstants;
+import com.sky.detector.data.IPAddress;
 import com.sky.detector.data.LoginAttempt;
 import com.sky.detector.data.LoginDate;
 import java.util.ArrayList;
@@ -19,15 +20,15 @@ import java.util.Map;
  */
 public class FiveMinutesCache {
     public static final long TIME_TO_KEEP_PAST_LOGINS = 5*DateConstants.MINUTE;
-    Map<String, PastLoginDates> knownIps;
+    Map<IPAddress, PastLoginDates> knownIps;
 
     public FiveMinutesCache() {
-        knownIps = new HashMap<String, PastLoginDates>();
+        knownIps = new HashMap<IPAddress, PastLoginDates>();
     }
     
     public void store(LoginAttempt loginAttempt) {
         if (loginAttempt.getAction() == Action.SIGNIN_FAILURE) {
-            String ip = loginAttempt.getIp();
+            IPAddress ip = loginAttempt.getIp();
             ensurePastLoginDatesInitialized(ip);
             
             PastLoginDates pastLoginDates = knownIps.get(ip);
@@ -35,7 +36,7 @@ public class FiveMinutesCache {
         }
     }
 
-    public int getNumberOfFailedLogins(String ip) {
+    public int getNumberOfFailedLogins(IPAddress ip) {
         int numberOfFailedLogins = 0;
         if (knownIps.containsKey(ip)) {
             PastLoginDates pastLoginDates = knownIps.get(ip);
@@ -45,7 +46,7 @@ public class FiveMinutesCache {
         return numberOfFailedLogins;
     }
 
-    private void ensurePastLoginDatesInitialized(String ip) {
+    private void ensurePastLoginDatesInitialized(IPAddress ip) {
         if (!knownIps.containsKey(ip)) {
             knownIps.put(ip, new PastLoginDates(TIME_TO_KEEP_PAST_LOGINS));
         }

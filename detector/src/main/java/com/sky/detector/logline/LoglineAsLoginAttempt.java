@@ -5,6 +5,7 @@
 package com.sky.detector.logline;
 
 import com.sky.detector.data.Action;
+import com.sky.detector.data.IPAddress;
 import com.sky.detector.data.LoginAttempt;
 import com.sky.detector.data.LoginDate;
 import com.sky.detector.exceptions.InvalidInputStringFormatException;
@@ -25,7 +26,7 @@ public class LoglineAsLoginAttempt implements LoglineInterpreter {
             throw new InvalidInputStringFormatException(
                     "Could not correctly split the log line into tokens");
         } else {
-            String ip = getValidIp(tokens[0]);
+            IPAddress ip = getValidIp(tokens[0]);
             LoginDate date = getValidDate(tokens[1]);
             Action action = getValidAction(tokens[2]);
             
@@ -33,13 +34,13 @@ public class LoglineAsLoginAttempt implements LoglineInterpreter {
         }
     }
 
-    protected String getValidIp(String ipToken) throws InvalidInputStringFormatException {
+    protected IPAddress getValidIp(String ipToken) throws InvalidInputStringFormatException {
         if (!InetAddressValidator.getInstance().isValid(ipToken)) {
             throw new InvalidInputStringFormatException(
                     "The Ip has incorrect format");
         }
         
-        return ipToken;
+        return new IPAddress(ipToken);
     }
     
     protected LoginDate getValidDate(String dateToken) throws InvalidInputStringFormatException {

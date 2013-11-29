@@ -4,8 +4,6 @@
  */
 package com.sky.detector.strategy.burst;
 
-import com.sky.detector.strategy.burst.FiveMinutesCache;
-import com.sky.detector.strategy.burst.BurstLoginDetectionStrategy;
 import com.sky.detector.data.LoginAttempt;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;

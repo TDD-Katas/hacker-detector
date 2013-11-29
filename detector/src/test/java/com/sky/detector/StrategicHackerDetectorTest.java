@@ -39,7 +39,7 @@ public class StrategicHackerDetectorTest {
         
         String result = detector.parseLine(SOME_LINE);
         
-        assertThat(result, is(loginAttempt.getIp()));
+        assertThat(result, is(loginAttempt.getIp().getRepresentation()));
     }
 
     //~~~~~ Test helpers
